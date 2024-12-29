@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
+
 const Logo = () => (
   <div className="text-center bg-white rounded-lg shadow p-4 mb-6">
     <h1 className="text-2xl font-bold text-blue-600">בית ספר כצנלסון</h1>
     <div className="text-lg">עד ההצלחה</div>
   </div>
 );
-import { supabase } from '../../utils/supabase';
-
 const ClassPointsApp = () => {
   // Initial data
   const grades = ['א', 'ב', 'ג', 'ד', 'ה', 'ו'];
