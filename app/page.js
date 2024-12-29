@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
 
 const ClassPointsApp = () => {
   // Initial data
@@ -40,10 +41,41 @@ const ClassPointsApp = () => {
   const [selectedNumber, setSelectedNumber] = useState(classStructure[grades[0]][0]);
   const [questionScores, setQuestionScores] = useState(Array(10).fill(0));
   const [classPoints, setClassPoints] = useState({});
-  
+  const [loading, setLoading] = useState(true);
+
   // Get current class name
   const currentClass = `${selectedGrade}${selectedNumber}`;
-  
+
+  // Load points from Supabase
+  useEffect(() => {
+    fetchPoints();
+  }, []);
+
+  const fetchPoints = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('class_points')
+        .select('*');
+
+      if (error) throw error;
+
+      // Convert array of records to object
+      const pointsObject = {};
+      data.forEach(record => {
+        if (!pointsObject[record.class_name]) {
+          pointsObject[record.class_name] = 0;
+        }
+        pointsObject[record.class_name] += record.points;
+      });
+
+      setClassPoints(pointsObject);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching points:', error);
+      setLoading(false);
+    }
+  };
+
   // Handle grade change
   const handleGradeChange = (grade) => {
     setSelectedGrade(grade);
@@ -57,13 +89,29 @@ const ClassPointsApp = () => {
   const getCurrentSubmissionTotal = () => questionScores.reduce((sum, score) => sum + score, 0);
 
   // Submit scores
-  const submitScores = () => {
+  const submitScores = async () => {
     const totalNew = getCurrentSubmissionTotal();
-    setClassPoints(prev => ({
-      ...prev,
-      [currentClass]: (prev[currentClass] || 0) + totalNew
-    }));
-    setQuestionScores(Array(10).fill(0));
+    if (totalNew === 0) return;
+
+    try {
+      const { error } = await supabase
+        .from('class_points')
+        .insert([
+          { class_name: currentClass, points: totalNew }
+        ]);
+
+      if (error) throw error;
+
+      setClassPoints(prev => ({
+        ...prev,
+        [currentClass]: (prev[currentClass] || 0) + totalNew
+      }));
+
+      setQuestionScores(Array(10).fill(0));
+    } catch (error) {
+      console.error('Error submitting scores:', error);
+      alert('שגיאה בשמירת הניקוד. נסו שוב.');
+    }
   };
 
   // Update individual question score
@@ -74,14 +122,31 @@ const ClassPointsApp = () => {
   };
 
   // Redeem prize
-  const redeemPrize = (prize) => {
+  const redeemPrize = async (prize) => {
     if (getCurrentClassPoints() >= prize.points) {
-      setClassPoints(prev => ({
-        ...prev,
-        [currentClass]: prev[currentClass] - prize.points
-      }));
+      try {
+        const { error } = await supabase
+          .from('class_points')
+          .insert([
+            { class_name: currentClass, points: -prize.points }
+          ]);
+
+        if (error) throw error;
+
+        setClassPoints(prev => ({
+          ...prev,
+          [currentClass]: prev[currentClass] - prize.points
+        }));
+      } catch (error) {
+        console.error('Error redeeming prize:', error);
+        alert('שגיאה בבחירת הפרס. נסו שוב.');
+      }
     }
   };
+
+  if (loading) {
+    return <div className="p-4">טוען נתונים...</div>;
+  }
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
@@ -173,3 +238,4 @@ const ClassPointsApp = () => {
 };
 
 export default ClassPointsApp;
+ 
