@@ -156,11 +156,7 @@ const ClassPointsApp = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-<img 
-        src="/logo.PNG"
-        className="mx-auto mb-6 h-32"
-        alt="סמל בית ספר כצנלסון"
-      />
+<Logo />
       {/* Class Selection */}
       <div className="mb-6 bg-white rounded-lg shadow p-4">
         <h2 className="text-xl font-bold mb-4">בחירת כיתה</h2>
