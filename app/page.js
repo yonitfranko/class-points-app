@@ -2,14 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 
-// קוד הלוגו החדש יחליף את הקוד הישן
 const Logo = () => (
   <div className="text-center bg-white rounded-lg shadow p-4 mb-6">
     <div className="mb-4">
       <img 
-        src="/logo.png"
+        src="/logo.PNG"  // שינינו ל-PNG באותיות גדולות בדיוק כמו בקובץ
         alt="סמל בית ספר כצנלסון"
-        className="mx-auto h-32"
+        style={{ height: '128px', margin: '0 auto', display: 'block' }}
       />
     </div>
     <h1 className="text-2xl font-bold text-blue-600">בית ספר כצנלסון</h1>
