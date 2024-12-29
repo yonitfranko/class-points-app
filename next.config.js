@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    appDir: true,
+  output: 'export',
+  images: {
+    unoptimized: true
   },
-  webpack(config) {
-    return config;
-  }
+  reactStrictMode: true,
+  swcMinify: true
 };
 
 module.exports = nextConfig;
