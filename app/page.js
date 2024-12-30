@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 import Link from 'next/link';
+
 const Logo = () => (
   <div className="text-center bg-white rounded-lg shadow p-4 mb-6">
     <div className="mb-4">
