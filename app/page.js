@@ -11,8 +11,8 @@ const Logo = () => (
         style={{ height: '128px', margin: '0 auto', display: 'block' }}
       />
     </div>
-    <h1 className="text-2xl font-bold text-blue-600">בית ספר כצנלסון</h1>
-<div className="text-lg">בנק אוצר המילים של כצנלסון</div>
+    <h1 className="text-2xl font-bold text-blue-600">בנק אוצר המילים כצנלסון</h1>
+<div className="text-lg">בית ספר כצנלסון</div>
     <div className="mt-4">
       <Link href="/dashboard">
         <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
