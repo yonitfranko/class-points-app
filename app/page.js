@@ -6,13 +6,13 @@ const Logo = () => (
   <div className="text-center bg-white rounded-lg shadow p-4 mb-6">
     <div className="mb-4">
       <img 
-        src="/logo.PNG"  // שינינו ל-PNG באותיות גדולות בדיוק כמו בקובץ
+        src="/logo.PNG"
         alt="סמל בית ספר כצנלסון"
         style={{ height: '128px', margin: '0 auto', display: 'block' }}
       />
     </div>
     <h1 className="text-2xl font-bold text-blue-600">בית ספר כצנלסון</h1>
-    <div className="text-lg">עד ההצלחה</div>
+    <div className="text-lg">בנק אוצר המילים של כצנלסון</div>
   </div>
 );
 const ClassPointsApp = () => {
