@@ -23,7 +23,6 @@ const Logo = () => (
     </div>
   </div>
 );
-
 const ClassPointsApp = () => {
   // Initial data
   const grades = ['א', 'ב', 'ג', 'ד', 'ה', 'ו'];
@@ -35,7 +34,8 @@ const ClassPointsApp = () => {
     'ה': ['1', '2', '3'],
     'ו': ['1', '2', '3', '4']
   };
-const prizes = [
+
+  const prizes = [
     { name: 'שעת יצירה', points: 50 },
     { name: 'זמן משחק כיתתי', points: 60 },
     { name: 'זמן מחשבים', points: 70 },
